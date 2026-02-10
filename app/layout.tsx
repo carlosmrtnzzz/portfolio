@@ -1,11 +1,11 @@
 import "./globals.css";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import { Providers } from "./providers";
 
 export const metadata = {
   title: "Carlos",
 };
-
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 
 export default function RootLayout({
   children,
@@ -13,11 +13,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="es">
-      <body>
-        <Navbar />
-        {children}
-        <Footer />
+    <html lang="es" suppressHydrationWarning>
+      <body className="flex min-h-screen flex-col m-0">
+        {" "}
+        <Providers>
+          <Navbar />
+          <div className="flex-1">{children}</div>
+          <Footer />
+        </Providers>
       </body>
     </html>
   );

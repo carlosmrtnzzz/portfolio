@@ -1,7 +1,8 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { motion } from "framer-motion"
+import Link from "next/link";
+import { motion } from "framer-motion";
+import ThemeToggle from "./ThemeToggle";
 
 export default function Navbar() {
   return (
@@ -16,18 +17,28 @@ export default function Navbar() {
           Carlos
         </span>
 
-        <div className="flex gap-6 text-sm text-zinc-600 dark:text-zinc-400">
-          <Link href="/" className="hover:text-black dark:hover:text-white">
-            Home
-          </Link>
-          <Link href="/projects" className="hover:text-black dark:hover:text-white">
-            Projects
-          </Link>
-          <Link href="/contact" className="hover:text-black dark:hover:text-white">
-            Contact
-          </Link>
+        <div className="flex items-center gap-6">
+          <div className="flex gap-6 text-sm text-zinc-600 dark:text-zinc-400">
+            <Link href="/" className="hover:text-black dark:hover:text-white">
+              Home
+            </Link>
+            <Link
+              href="/projects"
+              className="hover:text-black dark:hover:text-white"
+            >
+              Projects
+            </Link>
+            <Link
+              href="/contact"
+              className="hover:text-black dark:hover:text-white"
+            >
+              Contact
+            </Link>
+          </div>
+
+          <ThemeToggle />
         </div>
       </nav>
     </motion.header>
-  )
+  );
 }
