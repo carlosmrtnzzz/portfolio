@@ -1,6 +1,7 @@
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import AnimatedBackground from "@/components/AnimatedBackground";
 import { Providers } from "./providers";
 
 export const metadata = {
@@ -14,11 +15,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es" suppressHydrationWarning>
-      <body className="flex min-h-screen flex-col m-0">
-        {" "}
+      <body className="relative flex min-h-screen flex-col m-0">
+        <AnimatedBackground />
         <Providers>
           <Navbar />
-          <div className="flex-1">{children}</div>
+          <div className="flex-1 relative z-10">{children}</div>
           <Footer />
         </Providers>
       </body>
