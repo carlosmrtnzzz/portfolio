@@ -1,14 +1,13 @@
-import ProjectsGrid from "@/components/ProjectsGrid";
+import ProjectsScrollList from "@/components/ProjectsScrollList";
 
 export default function ProjectsPage() {
   return (
-    <main className="min-h-screen pt-24 pb-24">
-      <section className="mx-auto max-w-5xl px-6">
-        <h1 className="mb-12 text-3xl font-medium text-black dark:text-white">
+    <main className="min-h-screen bg-zinc-50 pt-24 dark:bg-black">
+      <section className="mx-auto max-w-7xl px-6">
+        <h1 className="mb-12 font-serif text-6xl font-normal italic md:text-7xl">
           Proyectos
         </h1>
-
-        <ProjectsGrid />
+        <ProjectsScrollList />
       </section>
     </main>
   );

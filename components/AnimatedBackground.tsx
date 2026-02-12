@@ -15,7 +15,6 @@ export default function AnimatedBackground() {
     const particlesCtx = particlesCanvas.getContext("2d");
     if (!wavesCtx || !particlesCtx) return;
 
-    // Set canvas size
     const setCanvasSize = () => {
       wavesCanvas.width = particlesCanvas.width = window.innerWidth;
       wavesCanvas.height = particlesCanvas.height = window.innerHeight;
@@ -26,7 +25,7 @@ export default function AnimatedBackground() {
     const mouse = {
       x: -1000,
       y: -1000,
-      radius: 40
+      radius: 40,
     };
 
     // Particles
@@ -42,12 +41,10 @@ export default function AnimatedBackground() {
       baseY: number;
     }> = [];
 
-    // Wave lights
     let waveOffset = 0;
 
     const isDark = () => document.documentElement.classList.contains("dark");
 
-    // Mouse event handlers
     const handleMouseMove = (e: MouseEvent) => {
       mouse.x = e.clientX;
       mouse.y = e.clientY;
@@ -58,22 +55,20 @@ export default function AnimatedBackground() {
       mouse.y = -1000;
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('mouseleave', handleMouseLeave);
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mouseleave", handleMouseLeave);
 
-    // Function to create particles
     const createParticles = () => {
-      particles.length = 0; // Clear existing particles
-      
+      particles.length = 0;
+
       for (let i = 0; i < 200; i++) {
         const x = Math.random() * particlesCanvas.width;
-        
-        // Calculate Y position following the wave curve
-        const waveY = particlesCanvas.height / 2 + 
-          Math.sin(x * 0.003) * 30 + 
+
+        const waveY =
+          particlesCanvas.height / 2 +
+          Math.sin(x * 0.003) * 30 +
           Math.cos(x * 0.002) * 15;
-        
-        // Add some randomness around the wave
+
         const y = waveY + (Math.random() - 0.5) * 80;
 
         particles.push({
@@ -96,7 +91,6 @@ export default function AnimatedBackground() {
       if (!wavesCtx || !particlesCtx || !wavesCanvas || !particlesCanvas)
         return;
 
-      // Clear both canvases
       wavesCtx.clearRect(0, 0, wavesCanvas.width, wavesCanvas.height);
       particlesCtx.clearRect(
         0,
@@ -105,7 +99,6 @@ export default function AnimatedBackground() {
         particlesCanvas.height,
       );
 
-      // Get colors based on theme
       const colors = isDark()
         ? {
             wave1: "rgba(100, 120, 140, 0.15)",
@@ -118,7 +111,6 @@ export default function AnimatedBackground() {
             wave3: "rgba(100, 110, 120, 0.25)",
           };
 
-      // Draw wave lights on waves canvas
       waveOffset += 0.003;
 
       // Wave 1
@@ -169,25 +161,21 @@ export default function AnimatedBackground() {
       wavesCtx.closePath();
       wavesCtx.fill();
 
-      // Draw and update particles on particles canvas
       particles.forEach((particle) => {
-        // Mouse repulsion
         const dx = mouse.x - particle.x;
         const dy = mouse.y - particle.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
-        
+
         if (distance < mouse.radius) {
           const force = (mouse.radius - distance) / mouse.radius;
           const angle = Math.atan2(dy, dx);
           particle.x -= Math.cos(angle) * force * 5;
           particle.y -= Math.sin(angle) * force * 5;
         } else {
-          // Return to base position slowly
           particle.x += (particle.baseX - particle.x) * 0.05;
           particle.y += (particle.baseY - particle.y) * 0.05;
         }
 
-        // Create radial gradient for glow effect
         const gradient = particlesCtx.createRadialGradient(
           particle.x,
           particle.y,
@@ -206,7 +194,6 @@ export default function AnimatedBackground() {
         );
         gradient.addColorStop(1, `rgba(${particleColor}, 0)`);
 
-        // Draw glowing particle
         particlesCtx.fillStyle = gradient;
         particlesCtx.beginPath();
         particlesCtx.arc(
@@ -218,17 +205,14 @@ export default function AnimatedBackground() {
         );
         particlesCtx.fill();
 
-        // Update base position
         particle.baseX += particle.speedX;
         particle.baseY += particle.speedY;
 
-        // Update opacity
         particle.opacity += particle.opacitySpeed;
         if (particle.opacity <= 0 || particle.opacity >= 0.5) {
           particle.opacitySpeed *= -1;
         }
 
-        // Wrap around screen
         if (particle.baseX < 0) particle.baseX = particlesCanvas.width;
         if (particle.baseX > particlesCanvas.width) particle.baseX = 0;
         if (particle.baseY < particlesCanvas.height / 2 - 100)
@@ -242,17 +226,16 @@ export default function AnimatedBackground() {
 
     animate();
 
-    // Handle resize
     const handleResize = () => {
       setCanvasSize();
-      createParticles(); // Recreate particles with new canvas size
+      createParticles();
     };
     window.addEventListener("resize", handleResize);
 
     return () => {
       window.removeEventListener("resize", handleResize);
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseleave', handleMouseLeave);
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseleave", handleMouseLeave);
     };
   }, []);
 
