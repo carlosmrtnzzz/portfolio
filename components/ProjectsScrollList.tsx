@@ -63,6 +63,19 @@ export default function ProjectsScrollList() {
     const itemHeight = (listItems[0] as HTMLElement).offsetHeight + 8;
     const totalScroll = itemHeight * listItems.length;
 
+    const handleItemClick = (index: number) => {
+      const trigger = ScrollTrigger.getAll()[0];
+      if (!trigger) return;
+      const targetProgress = (index + 0.5) / listItems.length;
+      const scrollTo =
+        trigger.start + (trigger.end - trigger.start) * targetProgress;
+      lenis.scrollTo(scrollTo, { duration: 1.2 });
+    };
+
+    listItems.forEach((item, i) => {
+      (item as HTMLElement).addEventListener("click", () => handleItemClick(i));
+    });
+
     gsap.to(listWrapper, {
       y: -totalScroll,
       ease: "none",
@@ -107,12 +120,14 @@ export default function ProjectsScrollList() {
             item.classList.remove("active");
           });
         },
-        onEnterBack: () => {
-        },
+        onEnterBack: () => {},
       },
     });
 
     return () => {
+      listItems.forEach((item, i) => {
+        (item as HTMLElement).replaceWith(item.cloneNode(true));
+      });
       lenis.destroy();
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
