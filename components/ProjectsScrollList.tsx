@@ -74,11 +74,11 @@ export default function ProjectsScrollList() {
         pinSpacing: true,
         scrub: 0.8,
         onUpdate: (self) => {
-          // Con length+1 el primer tramo de scroll no activa ningún proyecto
-          const rawIndex = Math.round(
-            self.progress * listItems.length - 0.5
+          const rawIndex = Math.round(self.progress * listItems.length - 0.5);
+          const activeIndex = Math.max(
+            -1,
+            Math.min(rawIndex, listItems.length - 1),
           );
-          const activeIndex = Math.max(-1, Math.min(rawIndex, listItems.length - 1));
 
           listItems.forEach((item, i) => {
             item.classList.toggle("active", i === activeIndex);
@@ -101,8 +101,13 @@ export default function ProjectsScrollList() {
             item.classList.remove("active");
           });
         },
+        onLeaveBack: () => {
+          gsap.to(previewImage, { opacity: 0, duration: 0.3 });
+          listItems.forEach((item) => {
+            item.classList.remove("active");
+          });
+        },
         onEnterBack: () => {
-          // No forzamos opacity aquí, el onUpdate se encarga
         },
       },
     });

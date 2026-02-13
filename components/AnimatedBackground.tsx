@@ -106,9 +106,9 @@ export default function AnimatedBackground() {
             wave3: "rgba(60, 80, 100, 0.08)",
           }
         : {
-            wave1: "rgba(140, 150, 160, 0.4)",
-            wave2: "rgba(120, 130, 140, 0.3)",
-            wave3: "rgba(100, 110, 120, 0.25)",
+            wave1: "rgba(220, 220, 220, 0.4)",
+            wave2: "rgba(200, 200, 200, 0.3)",
+            wave3: "rgba(180, 180, 180, 0.2)",
           };
 
       waveOffset += 0.003;

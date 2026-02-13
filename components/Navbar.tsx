@@ -20,19 +20,19 @@ export default function Navbar() {
         <div className="flex items-center gap-6">
           <div className="flex gap-6 text-sm text-zinc-600 dark:text-zinc-400">
             <Link href="/" className="hover:text-black dark:hover:text-white">
-              Home
+              Inicio
             </Link>
             <Link
               href="/projects"
               className="hover:text-black dark:hover:text-white"
             >
-              Projects
+              Proyectos
             </Link>
             <Link
               href="/contact"
               className="hover:text-black dark:hover:text-white"
             >
-              Contact
+              Contacto
             </Link>
           </div>
 
