@@ -11,6 +11,10 @@ const spaceGrotesk = Space_Grotesk({
   display: "swap",
 });
 
+export const metadata = {
+  title: "Carlos Martínez",
+};
+
 export default function RootLayout({
   children,
 }: {

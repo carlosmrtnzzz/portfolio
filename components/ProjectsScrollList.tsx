@@ -11,33 +11,44 @@ const projects = [
   {
     id: "01",
     title: "Equilibria",
+    description:
+      "Aplicación web de bienestar y meditación con interfaz minimalista.",
     image: "/projects/foto.jpg",
-    href: "#",
+    href: "https://equilibria.com",
   },
   {
     id: "02",
     title: "Landing Page",
+    description:
+      "Landing page corporativa con animaciones y diseño responsive.",
     image: "/projects/foto2.jpg",
-    href: "#",
+    href: "https://ejemplo.com",
   },
   {
     id: "03",
     title: "Dashboard UI",
+    description:
+      "Panel de control con gráficos interactivos y gestión de datos en tiempo real.",
     image: "/projects/foto3.jpg",
-    href: "#",
+    href: "https://ejemplo.com",
   },
   {
     id: "04",
     title: "E-commerce Concept",
+    description:
+      "Concepto de tienda online con carrito, filtros y pasarela de pago.",
     image: "/projects/foto4.jpg",
-    href: "#",
+    href: "https://ejemplo.com",
   },
 ];
 
 export default function ProjectsScrollList() {
   const containerRef = useRef<HTMLDivElement>(null);
   const listWrapperRef = useRef<HTMLDivElement>(null);
+  const previewCardRef = useRef<HTMLDivElement>(null);
   const previewImageRef = useRef<HTMLImageElement>(null);
+  const previewDescRef = useRef<HTMLParagraphElement>(null);
+  const previewLinkRef = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
     const lenis = new Lenis({
@@ -54,13 +65,25 @@ export default function ProjectsScrollList() {
 
     const container = containerRef.current;
     const listWrapper = listWrapperRef.current;
+    const previewCard = previewCardRef.current;
     const previewImage = previewImageRef.current;
+    const previewDesc = previewDescRef.current;
+    const previewLink = previewLinkRef.current;
     const listItems = container?.querySelectorAll(".list-item");
 
-    if (!container || !listWrapper || !previewImage || !listItems) return;
+    if (
+      !container ||
+      !listWrapper ||
+      !previewCard ||
+      !previewImage ||
+      !previewDesc ||
+      !previewLink ||
+      !listItems
+    )
+      return;
 
     const navbarHeight = 64;
-    const itemHeight = (listItems[0] as HTMLElement).offsetHeight + 8;
+    const itemHeight = (listItems[0] as HTMLElement).offsetHeight + 0.5;
     const totalScroll = itemHeight * listItems.length;
 
     const handleItemClick = (index: number) => {
@@ -98,24 +121,25 @@ export default function ProjectsScrollList() {
           });
 
           if (activeIndex >= 0 && activeIndex < listItems.length) {
-            const activeItem = listItems[activeIndex] as HTMLElement;
-            const newImage = activeItem.dataset.img;
-            if (newImage && previewImage.src !== newImage) {
-              previewImage.src = newImage;
+            const proj = projects[activeIndex];
+            if (previewImage.src !== proj.image) {
+              previewImage.src = proj.image;
             }
-            gsap.to(previewImage, { opacity: 1, duration: 0.3 });
+            previewDesc.textContent = proj.description;
+            previewLink.href = proj.href;
+            gsap.to(previewCard, { opacity: 1, duration: 0.3 });
           } else {
-            gsap.to(previewImage, { opacity: 0, duration: 0.3 });
+            gsap.to(previewCard, { opacity: 0, duration: 0.3 });
           }
         },
         onLeave: () => {
-          gsap.to(previewImage, { opacity: 0, duration: 0.3 });
+          gsap.to(previewCard, { opacity: 0, duration: 0.3 });
           listItems.forEach((item) => {
             item.classList.remove("active");
           });
         },
         onLeaveBack: () => {
-          gsap.to(previewImage, { opacity: 0, duration: 0.3 });
+          gsap.to(previewCard, { opacity: 0, duration: 0.3 });
           listItems.forEach((item) => {
             item.classList.remove("active");
           });
@@ -135,13 +159,29 @@ export default function ProjectsScrollList() {
 
   return (
     <>
-      <img
-        ref={previewImageRef}
-        src={projects[0].image}
-        alt="Project preview"
-        className="preview-image"
-        style={{ opacity: 0 }}
-      />
+      <div ref={previewCardRef} className="preview-card" style={{ opacity: 0 }}>
+        <img
+          ref={previewImageRef}
+          src={projects[0].image}
+          alt="Project preview"
+          className="preview-card-image"
+        />
+        <div className="preview-card-body">
+          <p ref={previewDescRef} className="preview-card-desc">
+            {projects[0].description}
+          </p>
+
+          <a
+            ref={previewLinkRef}
+            href={projects[0].href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="preview-card-link"
+          >
+            Ver proyecto →
+          </a>
+        </div>
+      </div>
 
       <div ref={containerRef} className="scroll-container">
         <div ref={listWrapperRef} className="list-wrapper">
@@ -234,46 +274,101 @@ export default function ProjectsScrollList() {
           color: rgba(255, 255, 255, 0.8);
         }
 
-        .preview-image {
+        .preview-card {
           position: fixed;
           top: 50%;
-          right: 80px;
+          right: 60px;
           transform: translateY(-50%);
-          width: 420px;
-          height: 560px;
+          width: 440px;
+          background: rgba(255, 255, 255, 0.9);
+          backdrop-filter: blur(12px);
+          border: 1px solid rgba(0, 0, 0, 0.08);
+          border-radius: 12px;
+          overflow: hidden;
+          pointer-events: auto;
+          z-index: 100;
+          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+        }
+
+        :global(.dark) .preview-card {
+          background: rgba(30, 30, 30, 0.9);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .preview-card-image {
+          width: 100%;
+          height: 240px;
           object-fit: cover;
           object-position: center top;
-          border-radius: 6px;
-          filter: grayscale(20%);
-          pointer-events: none;
-          z-index: 100;
+        }
+
+        .preview-card-body {
+          padding: 20px;
+        }
+
+        .preview-card-desc {
+          font-size: 14px;
+          line-height: 1.6;
+          color: rgba(0, 0, 0, 0.7);
+          margin: 0 0 16px 0;
+        }
+
+        :global(.dark) .preview-card-desc {
+          color: rgba(255, 255, 255, 0.7);
+        }
+
+        .preview-card-link {
+          display: inline-flex;
+          align-items: center;
+          font-size: 13px;
+          font-weight: 600;
+          color: black;
+          text-decoration: none;
+          transition: opacity 0.2s ease;
+        }
+
+        .preview-card-link:hover {
+          opacity: 0.6;
+        }
+
+        :global(.dark) .preview-card-link {
+          color: white;
         }
 
         @media (max-width: 1024px) {
-          .preview-image {
-            width: 320px;
-            height: 420px;
-            right: 40px;
+          .preview-card {
+            width: 340px;
+            right: 30px;
+          }
+
+          .preview-card-image {
+            height: 190px;
           }
         }
 
         @media (max-width: 768px) {
-          .preview-image {
+          .preview-card {
+            position: fixed;
             top: auto;
-            bottom: 20px;
+            bottom: 16px;
             right: 16px;
+            left: 16px;
             transform: none;
-            width: 140px;
-            height: 180px;
-            border-radius: 4px;
+            width: auto;
           }
 
-          .project-heading {
-            font-size: 24px;
+          .preview-card-image {
+            height: 140px;
           }
 
-          .list-item.active .project-heading {
-            transform: translateX(12px);
+          .preview-card-body {
+            padding: 12px 16px;
+          }
+
+          .preview-card-desc {
+            font-size: 12px;
+            margin: 0 0 8px 0;
           }
         }
       `}</style>
