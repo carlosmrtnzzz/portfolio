@@ -82,6 +82,38 @@ export default function ProjectsScrollList() {
     )
       return;
 
+    const handleCardMouseMove = (e: MouseEvent) => {
+      if (window.innerWidth <= 768) return;
+
+      const rect = previewCard.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+
+      const rotateX = ((y - centerY) / centerY) * -15;
+      const rotateY = ((x - centerX) / centerX) * 15;
+
+      gsap.to(previewCard, {
+        rotateX: rotateX,
+        rotateY: rotateY,
+        duration: 0.3,
+        ease: "power2.out",
+      });
+    };
+
+    const handleCardMouseLeave = () => {
+      gsap.to(previewCard, {
+        rotateX: 0,
+        rotateY: 0,
+        duration: 0.5,
+        ease: "power2.out",
+      });
+    };
+
+    previewCard.addEventListener("mousemove", handleCardMouseMove);
+    previewCard.addEventListener("mouseleave", handleCardMouseLeave);
+
     const navbarHeight = 64;
     const itemHeight = (listItems[0] as HTMLElement).offsetHeight + 0.5;
     const totalScroll = itemHeight * listItems.length;
@@ -152,6 +184,8 @@ export default function ProjectsScrollList() {
       listItems.forEach((item, i) => {
         (item as HTMLElement).replaceWith(item.cloneNode(true));
       });
+      previewCard.removeEventListener("mousemove", handleCardMouseMove);
+      previewCard.removeEventListener("mouseleave", handleCardMouseLeave);
       lenis.destroy();
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
@@ -160,26 +194,42 @@ export default function ProjectsScrollList() {
   return (
     <>
       <div ref={previewCardRef} className="preview-card" style={{ opacity: 0 }}>
-        <img
-          ref={previewImageRef}
-          src={projects[0].image}
-          alt="Project preview"
-          className="preview-card-image"
-        />
+        <a
+          ref={previewLinkRef}
+          href={projects[0].href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="preview-card-image-container"
+        >
+          <img
+            ref={previewImageRef}
+            src={projects[0].image}
+            alt="Project preview"
+            className="preview-card-image"
+          />
+          <div className="preview-card-overlay">
+            <span className="preview-card-arrow">
+              <svg
+                width="32"
+                height="32"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
+              <span>Ver proyecto</span>
+            </span>
+          </div>
+        </a>
         <div className="preview-card-body">
           <p ref={previewDescRef} className="preview-card-desc">
             {projects[0].description}
           </p>
-
-          <a
-            ref={previewLinkRef}
-            href={projects[0].href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="preview-card-link"
-          >
-            Ver proyecto →
-          </a>
         </div>
       </div>
 
@@ -212,6 +262,7 @@ export default function ProjectsScrollList() {
           flex-direction: column;
           gap: 8px;
           width: 100%;
+          max-width: 500px;
           padding: 24px 0;
         }
 
@@ -277,17 +328,24 @@ export default function ProjectsScrollList() {
         .preview-card {
           position: fixed;
           top: 50%;
-          right: 60px;
+          left: 55%;
           transform: translateY(-50%);
-          width: 440px;
+          transform-style: preserve-3d;
+          perspective: 1000px;
+          width: 500px;
           background: rgba(255, 255, 255, 0.9);
           backdrop-filter: blur(12px);
           border: 1px solid rgba(0, 0, 0, 0.08);
-          border-radius: 12px;
+          border-radius: 16px;
           overflow: hidden;
           pointer-events: auto;
           z-index: 100;
           box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+          transition: box-shadow 0.3s ease;
+        }
+
+        .preview-card:hover {
+          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
         }
 
         :global(.dark) .preview-card {
@@ -296,79 +354,220 @@ export default function ProjectsScrollList() {
           box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
 
+        :global(.dark) .preview-card:hover {
+          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .preview-card-image-container {
+          position: relative;
+          display: block;
+          overflow: hidden;
+        }
+
         .preview-card-image {
           width: 100%;
-          height: 240px;
+          height: 320px;
           object-fit: cover;
           object-position: center top;
+          transition: transform 0.4s ease;
+        }
+
+        .preview-card-image-container:hover .preview-card-image {
+          transform: scale(1.05);
+        }
+
+        .preview-card-overlay {
+          position: absolute;
+          inset: 0;
+          background: rgba(0, 0, 0, 0.5);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          opacity: 0;
+          transition: opacity 0.3s ease;
+        }
+
+        .preview-card-image-container:hover .preview-card-overlay {
+          opacity: 1;
+        }
+
+        .preview-card-arrow {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 8px;
+          color: white;
+          font-size: 14px;
+          font-weight: 500;
         }
 
         .preview-card-body {
-          padding: 20px;
+          padding: 24px;
         }
 
         .preview-card-desc {
-          font-size: 14px;
+          font-size: 15px;
           line-height: 1.6;
           color: rgba(0, 0, 0, 0.7);
-          margin: 0 0 16px 0;
+          margin: 0;
         }
 
         :global(.dark) .preview-card-desc {
           color: rgba(255, 255, 255, 0.7);
         }
 
-        .preview-card-link {
-          display: inline-flex;
-          align-items: center;
-          font-size: 13px;
-          font-weight: 600;
-          color: black;
-          text-decoration: none;
-          transition: opacity 0.2s ease;
-        }
-
-        .preview-card-link:hover {
-          opacity: 0.6;
-        }
-
-        :global(.dark) .preview-card-link {
-          color: white;
-        }
-
-        @media (max-width: 1024px) {
+        @media (min-width: 2560px) {
           .preview-card {
-            width: 340px;
+            width: 700px;
+            left: 60%;
+          }
+
+          .preview-card-image {
+            height: 450px;
+          }
+
+          .preview-card-body {
+            padding: 32px;
+          }
+
+          .preview-card-desc {
+            font-size: 18px;
+          }
+
+          .project-heading {
+            font-size: clamp(36px, 5vw, 64px);
+          }
+        }
+
+        /* 2K screens (1440p) */
+        @media (min-width: 1800px) and (max-width: 2559px) {
+          .preview-card {
+            width: 600px;
+            left: 52%;
+          }
+
+          .preview-card-image {
+            height: 400px;
+          }
+
+          .preview-card-body {
+            padding: 28px;
+          }
+
+          .preview-card-desc {
+            font-size: 16px;
+          }
+
+          .project-heading {
+            font-size: clamp(32px, 5vw, 56px);
+          }
+        }
+
+        /* Large screens 1400-1800 */
+        @media (min-width: 1400px) and (max-width: 1799px) {
+          .preview-card {
+            width: 520px;
+            left: 54%;
+          }
+
+          .preview-card-image {
+            height: 340px;
+          }
+        }
+
+        /* Medium screens */
+        @media (max-width: 1399px) and (min-width: 1200px) {
+          .preview-card {
+            width: 460px;
+            left: 52%;
+          }
+
+          .preview-card-image {
+            height: 300px;
+          }
+
+          .preview-card-body {
+            padding: 20px;
+          }
+        }
+
+        /* Smaller desktop */
+        @media (max-width: 1199px) and (min-width: 1024px) {
+          .preview-card {
+            width: 400px;
+            left: auto;
+            right: 40px;
+          }
+
+          .preview-card-image {
+            height: 260px;
+          }
+
+          .preview-card-body {
+            padding: 18px;
+          }
+
+          .preview-card-desc {
+            font-size: 14px;
+          }
+        }
+
+        /* Tablet */
+        @media (max-width: 1023px) and (min-width: 769px) {
+          .preview-card {
+            width: 350px;
+            left: auto;
             right: 30px;
           }
 
           .preview-card-image {
-            height: 190px;
+            height: 220px;
+          }
+
+          .preview-card-body {
+            padding: 16px;
+          }
+
+          .preview-card-desc {
+            font-size: 13px;
           }
         }
 
+        /* Mobile */
         @media (max-width: 768px) {
           .preview-card {
             position: fixed;
             top: auto;
-            bottom: 16px;
+            bottom: 30px;
             right: 16px;
             left: 16px;
             transform: none;
             width: auto;
+            border-radius: 12px;
           }
 
           .preview-card-image {
-            height: 140px;
+            height: 220px;
+            object-position: center center;
           }
 
           .preview-card-body {
-            padding: 12px 16px;
+            padding: 14px 16px;
           }
 
           .preview-card-desc {
-            font-size: 12px;
-            margin: 0 0 8px 0;
+            font-size: 13px;
+          }
+        }
+
+        /* Small mobile */
+        @media (max-width: 480px) {
+          .preview-card {
+            bottom: 50px;
+          }
+
+          .preview-card-image {
+            height: 200px;
           }
         }
       `}</style>

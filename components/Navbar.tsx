@@ -1,10 +1,32 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import ThemeToggle from "./ThemeToggle";
 
 export default function Navbar() {
+  const pathname = usePathname();
+
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string,
+  ) => {
+    if (pathname === href) {
+      e.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }
+  };
+
+  const navLinks = [
+    { href: "/", label: "Inicio" },
+    { href: "/projects", label: "Proyectos" },
+    { href: "/contact", label: "Contacto" },
+  ];
+
   return (
     <motion.header
       initial={{ y: -60, opacity: 0 }}
@@ -19,21 +41,21 @@ export default function Navbar() {
 
         <div className="flex items-center gap-6">
           <div className="flex gap-6 text-sm text-zinc-600 dark:text-zinc-400">
-            <Link href="/" className="hover:text-black dark:hover:text-white">
-              Inicio
-            </Link>
-            <Link
-              href="/projects"
-              className="hover:text-black dark:hover:text-white"
-            >
-              Proyectos
-            </Link>
-            <Link
-              href="/contact"
-              className="hover:text-black dark:hover:text-white"
-            >
-              Contacto
-            </Link>
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href;
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={(e) => handleNavClick(e, link.href)}
+                  className={`transition-colors hover:text-black dark:hover:text-white ${
+                    isActive ? "font-semibold text-black dark:text-white" : ""
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
           </div>
 
           <ThemeToggle />

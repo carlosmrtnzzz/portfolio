@@ -163,7 +163,7 @@ export default function Hero() {
   return (
     <section
       ref={heroRef}
-      className="flex h-[calc(100vh-8rem)] flex-col overflow-hidden"
+      className="flex h-[calc(100vh-15rem)] flex-col overflow-hidden sm:h-[calc(100vh-8rem)]"
     >
       <div className="flex flex-1 flex-col items-center justify-center px-6">
         <h1
