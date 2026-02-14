@@ -7,6 +7,15 @@
     --x: 50%;
     --y: 50%;
   }
+
+  html {
+    background-color: white;
+    overscroll-behavior: none;
+  }
+
+  html.dark {
+    background-color: black;
+  }
 }
 
 ::view-transition-old(root),

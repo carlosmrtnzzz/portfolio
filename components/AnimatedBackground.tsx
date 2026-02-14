@@ -15,6 +15,8 @@ export default function AnimatedBackground() {
     const particlesCtx = particlesCanvas.getContext("2d");
     if (!wavesCtx || !particlesCtx) return;
 
+    const isMobile = () => window.innerWidth < 768;
+
     const setCanvasSize = () => {
       wavesCanvas.width = particlesCanvas.width = window.innerWidth;
       wavesCanvas.height = particlesCanvas.height = window.innerHeight;
@@ -61,6 +63,8 @@ export default function AnimatedBackground() {
     const createParticles = () => {
       particles.length = 0;
 
+      if (isMobile()) return;
+
       for (let i = 0; i < 200; i++) {
         const x = Math.random() * particlesCanvas.width;
 
@@ -98,6 +102,8 @@ export default function AnimatedBackground() {
         particlesCanvas.width,
         particlesCanvas.height,
       );
+
+      const mobile = isMobile();
 
       const colors = isDark()
         ? {
@@ -161,65 +167,70 @@ export default function AnimatedBackground() {
       wavesCtx.closePath();
       wavesCtx.fill();
 
-      particles.forEach((particle) => {
-        const dx = mouse.x - particle.x;
-        const dy = mouse.y - particle.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
+      if (!mobile) {
+        particles.forEach((particle) => {
+          const dx = mouse.x - particle.x;
+          const dy = mouse.y - particle.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
 
-        if (distance < mouse.radius) {
-          const force = (mouse.radius - distance) / mouse.radius;
-          const angle = Math.atan2(dy, dx);
-          particle.x -= Math.cos(angle) * force * 5;
-          particle.y -= Math.sin(angle) * force * 5;
-        } else {
-          particle.x += (particle.baseX - particle.x) * 0.05;
-          particle.y += (particle.baseY - particle.y) * 0.05;
-        }
+          if (distance < mouse.radius) {
+            const force = (mouse.radius - distance) / mouse.radius;
+            const angle = Math.atan2(dy, dx);
+            particle.x -= Math.cos(angle) * force * 5;
+            particle.y -= Math.sin(angle) * force * 5;
+          } else {
+            particle.x += (particle.baseX - particle.x) * 0.05;
+            particle.y += (particle.baseY - particle.y) * 0.05;
+          }
 
-        const gradient = particlesCtx.createRadialGradient(
-          particle.x,
-          particle.y,
-          0,
-          particle.x,
-          particle.y,
-          particle.size * 3,
-        );
+          const gradient = particlesCtx.createRadialGradient(
+            particle.x,
+            particle.y,
+            0,
+            particle.x,
+            particle.y,
+            particle.size * 3,
+          );
 
-        const particleColor = isDark() ? "255, 255, 255" : "200, 200, 200";
+          const particleColor = isDark() ? "255, 255, 255" : "80, 80, 80";
 
-        gradient.addColorStop(0, `rgba(${particleColor}, ${particle.opacity})`);
-        gradient.addColorStop(
-          0.5,
-          `rgba(${particleColor}, ${particle.opacity * 0.3})`,
-        );
-        gradient.addColorStop(1, `rgba(${particleColor}, 0)`);
+          gradient.addColorStop(
+            0,
+            `rgba(${particleColor}, ${particle.opacity})`,
+          );
+          gradient.addColorStop(
+            0.5,
+            `rgba(${particleColor}, ${particle.opacity * 0.3})`,
+          );
+          gradient.addColorStop(1, `rgba(${particleColor}, 0)`);
 
-        particlesCtx.fillStyle = gradient;
-        particlesCtx.beginPath();
-        particlesCtx.arc(
-          particle.x,
-          particle.y,
-          particle.size * 3,
-          0,
-          Math.PI * 2,
-        );
-        particlesCtx.fill();
+          particlesCtx.fillStyle = gradient;
+          particlesCtx.beginPath();
+          particlesCtx.arc(
+            particle.x,
+            particle.y,
+            particle.size * 3,
+            0,
+            Math.PI * 2,
+          );
+          particlesCtx.fill();
 
-        particle.baseX += particle.speedX;
-        particle.baseY += particle.speedY;
+          particle.baseX += particle.speedX;
+          particle.baseY += particle.speedY;
 
-        particle.opacity += particle.opacitySpeed;
-        if (particle.opacity <= 0 || particle.opacity >= 0.5) {
-          particle.opacitySpeed *= -1;
-        }
+          particle.opacity += particle.opacitySpeed;
+          if (particle.opacity <= 0 || particle.opacity >= 0.5) {
+            particle.opacitySpeed *= -1;
+          }
 
-        if (particle.baseX < 0) particle.baseX = particlesCanvas.width;
-        if (particle.baseX > particlesCanvas.width) particle.baseX = 0;
-        if (particle.baseY < particlesCanvas.height / 2 - 100)
-          particle.baseY = particlesCanvas.height / 2 + 100;
-        if (particle.baseY > particlesCanvas.height / 2 + 100)
-          particle.baseY = particlesCanvas.height / 2 - 100;
-      });
+          if (particle.baseX < 0) particle.baseX = particlesCanvas.width;
+          if (particle.baseX > particlesCanvas.width) particle.baseX = 0;
+          if (particle.baseY < particlesCanvas.height / 2 - 100)
+            particle.baseY = particlesCanvas.height / 2 + 100;
+          if (particle.baseY > particlesCanvas.height / 2 + 100)
+            particle.baseY = particlesCanvas.height / 2 - 100;
+        });
+      }
 
       requestAnimationFrame(animate);
     };
