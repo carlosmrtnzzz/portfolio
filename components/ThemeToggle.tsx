@@ -1,39 +1,39 @@
-"use client"
+"use client";
 
-import { useTheme } from "next-themes"
-import { useEffect, useState } from "react"
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 
 export default function ThemeToggle() {
-  const [mounted, setMounted] = useState(false)
-  const { theme, setTheme } = useTheme()
+  const [mounted, setMounted] = useState(false);
+  const { resolvedTheme, setTheme } = useTheme();
 
   useEffect(() => {
-    setMounted(true)
-  }, [])
+    setMounted(true);
+  }, []);
 
   if (!mounted) {
-    return <div className="w-10 h-10" />
+    return <div className="w-10 h-10" />;
   }
 
   const toggleTheme = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const newTheme = theme === "dark" ? "light" : "dark"
-    
-    const rect = e.currentTarget.getBoundingClientRect()
-    const x = rect.left + rect.width / 2
-    const y = rect.top + rect.height / 2
-    
+    const newTheme = resolvedTheme === "dark" ? "light" : "dark";
+
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = rect.left + rect.width / 2;
+    const y = rect.top + rect.height / 2;
+
     if (!document.startViewTransition) {
-      setTheme(newTheme)
-      return
+      setTheme(newTheme);
+      return;
     }
-    
-    document.documentElement.style.setProperty('--x', `${x}px`)
-    document.documentElement.style.setProperty('--y', `${y}px`)
-    
-    const transition = document.startViewTransition(() => {
-      setTheme(newTheme)
-    })
-  }
+
+    document.documentElement.style.setProperty("--x", `${x}px`);
+    document.documentElement.style.setProperty("--y", `${y}px`);
+
+    document.startViewTransition(() => {
+      setTheme(newTheme);
+    });
+  };
 
   return (
     <button
@@ -41,7 +41,7 @@ export default function ThemeToggle() {
       className="rounded-lg p-2 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
       aria-label="Toggle theme"
     >
-      {theme === "dark" ? (
+      {resolvedTheme === "dark" ? (
         <svg
           className="w-6 h-6"
           viewBox="0 0 512 512"
@@ -63,5 +63,5 @@ export default function ThemeToggle() {
         </svg>
       )}
     </button>
-  )
+  );
 }
