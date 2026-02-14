@@ -13,31 +13,29 @@ const projects = [
     title: "Equilibria",
     description:
       "Aplicación web de bienestar y meditación con interfaz minimalista.",
-    image: "/projects/foto.jpg",
+    image: "/projects/equilibria.png",
     href: "https://equilibria.com",
   },
   {
     id: "02",
-    title: "Landing Page",
+    title: "Ahorcado",
     description:
-      "Landing page corporativa con animaciones y diseño responsive.",
-    image: "/projects/foto2.jpg",
+      "Juego clásico de adivinar palabras con diseño moderno y animaciones suaves.",
+    image: "/projects/ahorcado.png",
     href: "https://ejemplo.com",
   },
   {
     id: "03",
-    title: "Dashboard UI",
-    description:
-      "Panel de control con gráficos interactivos y gestión de datos en tiempo real.",
-    image: "/projects/foto3.jpg",
+    title: "Rediseño web",
+    description: "Rediseño completo de un sitio web.",
+    image: "/projects/rousse.png",
     href: "https://ejemplo.com",
   },
   {
     id: "04",
-    title: "E-commerce Concept",
-    description:
-      "Concepto de tienda online con carrito, filtros y pasarela de pago.",
-    image: "/projects/foto4.jpg",
+    title: "Algo",
+    description: "Something in the way.",
+    image: "/projects/equilibria.png",
     href: "https://ejemplo.com",
   },
 ];
