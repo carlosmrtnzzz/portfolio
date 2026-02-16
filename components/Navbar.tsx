@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import ThemeToggle from "./ThemeToggle";
+import Image from "next/image";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -37,7 +38,7 @@ export default function Navbar() {
       <nav className="mx-auto flex h-16 max-w-5xl items-center justify-between px-6">
         <span className="font-semibold tracking-tight text-black dark:text-white">
           <Link href="/">
-            <img src="/favicon.ico" alt="Logo" className="h-8 w-8" />
+            <Image src="/logo.png" alt="Logo" width={32} height={32} priority />
           </Link>
         </span>
 
