@@ -187,7 +187,7 @@ export default function ContactPage() {
         }
 
         :global(.dark) .contact-card {
-          background: rgba(30, 30, 30, 0.8);
+          background: rgba(24, 30, 37);
           border: 1px solid rgba(255, 255, 255, 0.08);
           box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
         }
