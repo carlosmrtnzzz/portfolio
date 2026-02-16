@@ -13,13 +13,12 @@ const spaceGrotesk = Space_Grotesk({
 
 export const metadata = {
   title: "Carlos Martínez",
-  description:
-    "Desarrollador web especializado en React y Next.js. Portfolio con proyectos, experiencia y contacto.",
+  description: "Portfolio de Carlos Martínez Jiménez.",
   keywords: ["desarrollador web", "React", "Next.js", "portfolio"],
   authors: [{ name: "Carlos Martínez" }],
   openGraph: {
     title: "Carlos Martínez",
-    description: "Desarrollador web especializado en React y Next.js",
+    description: "Desarrollador web",
     type: "website",
   },
 };
