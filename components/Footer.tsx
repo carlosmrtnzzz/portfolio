@@ -37,7 +37,7 @@ export default function Footer() {
       initial={{ y: 60, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6 }}
-      className="border-t border-zinc-200 bg-white/80 backdrop-blur dark:border-zinc-800 dark:bg-black/80"
+      className="border-t border-zinc-200 bg-white/95 backdrop-blur dark:border-zinc-800 dark:bg-black/80"
     >
       <div className="mx-auto flex max-w-5xl flex-col gap-4 px-6 py-6 sm:flex-row sm:items-center sm:justify-between sm:py-4">
         <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-4">
