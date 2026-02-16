@@ -98,7 +98,7 @@ export default function ContactPage() {
       ref={containerRef}
       className="min-h-screen bg-zinc-50 pt-24 pb-12 dark:bg-black"
     >
-      <section className="mx-auto flex min-h-[calc(100vh-8rem)] max-w-7xl items-center justify-center px-6">
+      <section className="mx-auto flex min-h-[calc(100vh-8rem)] max-w-7xl items-center justify-center px-4 sm:px-6">
         <div
           ref={cardRef}
           className="contact-card w-full max-w-md"
@@ -107,7 +107,7 @@ export default function ContactPage() {
           <div className="card-content">
             <h1
               ref={titleRef}
-              className="mb-12 text-6xl font-normal md:text-6xl"
+              className="text-4xl font-normal sm:text-5xl md:text-6xl"
               style={{ opacity: 0 }}
             >
               Contacto
@@ -115,7 +115,7 @@ export default function ContactPage() {
 
             <p
               ref={subtitleRef}
-              className="mt-8 text-zinc-500 dark:text-zinc-400"
+              className="mt-6 text-sm text-zinc-500 dark:text-zinc-400 sm:mt-8 sm:text-base"
               style={{ opacity: 0 }}
             >
               Abierto a nuevas oportunidades y retos profesionales.
@@ -123,7 +123,7 @@ export default function ContactPage() {
               Encantado de formar parte de equipos con visión y ambición.
             </p>
 
-            <div className="mt-10 flex flex-col gap-3">
+            <div className="mt-8 flex flex-col gap-3 sm:mt-10">
               {contactMethods.map((method, index) => (
                 <a
                   key={method.id}
@@ -144,12 +144,12 @@ export default function ContactPage() {
                       dangerouslySetInnerHTML={{ __html: method.icon }}
                     />
                   </div>
-                  <div className="flex flex-col">
+                  <div className="flex min-w-0 flex-1 flex-col">
                     <span className="contact-label">{method.label}</span>
                     <span className="contact-value">{method.value}</span>
                   </div>
                   <svg
-                    className="ml-auto arrow-icon"
+                    className="arrow-icon flex-shrink-0"
                     xmlns="http://www.w3.org/2000/svg"
                     width="20"
                     height="20"
@@ -166,7 +166,7 @@ export default function ContactPage() {
                 </a>
               ))}
             </div>
-            <div className="mt-10 pt-6 border-t border-zinc-200 dark:border-zinc-800">
+            <div className="mt-8 pt-6 border-t border-zinc-200 dark:border-zinc-800 sm:mt-10">
               <p className="text-sm text-zinc-400 dark:text-zinc-500">
                 Málaga, España
               </p>
@@ -180,7 +180,7 @@ export default function ContactPage() {
           background: rgba(255, 255, 255, 0.8);
           backdrop-filter: blur(12px);
           border: 1px solid rgba(0, 0, 0, 0.08);
-          border-radius: 24px;
+          border-radius: 20px;
           overflow: hidden;
           box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
           transition: box-shadow 0.3s ease;
@@ -193,24 +193,36 @@ export default function ContactPage() {
         }
 
         .card-content {
-          padding: 40px;
+          padding: 24px;
         }
 
-        @media (max-width: 640px) {
+        @media (min-width: 640px) {
+          .contact-card {
+            border-radius: 24px;
+          }
+
           .card-content {
-            padding: 28px;
+            padding: 40px;
           }
         }
 
         .contact-item {
           display: flex;
           align-items: center;
-          gap: 16px;
-          padding: 16px 20px;
+          gap: 12px;
+          padding: 12px 14px;
           background: rgba(0, 0, 0, 0.02);
           border: 1px solid rgba(0, 0, 0, 0.04);
-          border-radius: 16px;
+          border-radius: 12px;
           transition: all 0.3s ease;
+        }
+
+        @media (min-width: 640px) {
+          .contact-item {
+            gap: 16px;
+            padding: 16px 20px;
+            border-radius: 16px;
+          }
         }
 
         :global(.dark) .contact-item {
@@ -233,11 +245,20 @@ export default function ContactPage() {
           display: flex;
           align-items: center;
           justify-content: center;
-          width: 48px;
-          height: 48px;
+          width: 40px;
+          height: 40px;
+          flex-shrink: 0;
           background: rgba(0, 0, 0, 0.05);
-          border-radius: 12px;
+          border-radius: 10px;
           transition: all 0.3s ease;
+        }
+
+        @media (min-width: 640px) {
+          .contact-icon-wrapper {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+          }
         }
 
         :global(.dark) .contact-icon-wrapper {
@@ -257,6 +278,18 @@ export default function ContactPage() {
           transition: color 0.3s ease;
         }
 
+        .contact-icon :global(svg) {
+          width: 20px;
+          height: 20px;
+        }
+
+        @media (min-width: 640px) {
+          .contact-icon :global(svg) {
+            width: 24px;
+            height: 24px;
+          }
+        }
+
         :global(.dark) .contact-icon {
           color: rgba(255, 255, 255, 0.7);
         }
@@ -270,11 +303,17 @@ export default function ContactPage() {
         }
 
         .contact-label {
-          font-size: 12px;
+          font-size: 11px;
           font-weight: 500;
           text-transform: uppercase;
           letter-spacing: 0.05em;
           color: rgba(0, 0, 0, 0.4);
+        }
+
+        @media (min-width: 640px) {
+          .contact-label {
+            font-size: 12px;
+          }
         }
 
         :global(.dark) .contact-label {
@@ -282,9 +321,18 @@ export default function ContactPage() {
         }
 
         .contact-value {
-          font-size: 15px;
+          font-size: 13px;
           font-weight: 500;
           color: rgba(0, 0, 0, 0.9);
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+
+        @media (min-width: 640px) {
+          .contact-value {
+            font-size: 15px;
+          }
         }
 
         :global(.dark) .contact-value {
@@ -295,6 +343,15 @@ export default function ContactPage() {
           color: rgba(0, 0, 0, 0.2);
           transition: all 0.3s ease;
           transform: translateX(0);
+          width: 18px;
+          height: 18px;
+        }
+
+        @media (min-width: 640px) {
+          .arrow-icon {
+            width: 20px;
+            height: 20px;
+          }
         }
 
         :global(.dark) .arrow-icon {
