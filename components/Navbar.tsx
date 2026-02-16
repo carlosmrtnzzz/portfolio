@@ -37,7 +37,7 @@ export default function Navbar() {
     >
       <nav className="mx-auto flex h-16 max-w-5xl items-center justify-between px-6">
         <span className="font-semibold tracking-tight text-black dark:text-white">
-          <Link href="/">
+          <Link href="/" onClick={(e) => handleNavClick(e, "/")}>
             <Image src="/logo.png" alt="Logo" width={32} height={32} priority />
           </Link>
         </span>
