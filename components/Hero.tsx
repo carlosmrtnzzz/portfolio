@@ -193,7 +193,7 @@ export default function Hero() {
 
         <a
           ref={btnRef}
-          href="/cv.pdf"
+          href="/Carlos_Martinez_CV.pdf"
           download
           className="mt-6 inline-flex items-center gap-2 rounded-full border border-zinc-300 bg-black px-6 py-3 text-sm font-medium text-white transition-all duration-300 hover:scale-105 hover:bg-zinc-800 dark:border-zinc-700 dark:bg-white dark:text-black dark:hover:bg-zinc-200 sm:mt-8"
           style={{ opacity: 0 }}
@@ -258,7 +258,7 @@ export default function Hero() {
           border-top: 1px solid rgba(0, 0, 0, 0.08);
           border-bottom: 1px solid rgba(0, 0, 0, 0.08);
         }
-          
+
         :global(.dark) .marquee-bg {
           background: rgba(255, 255, 255, 0.05);
           border-top: 1px solid rgba(255, 255, 255, 0.1);

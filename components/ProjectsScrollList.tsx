@@ -14,7 +14,7 @@ const projects = [
     description:
       "Aplicación web de bienestar y meditación con interfaz minimalista.",
     image: "/projects/equilibria.png",
-    href: "https://equilibria.com",
+    href: "https://github.com/carlosmrtnzzz/equilibria",
   },
   {
     id: "02",
@@ -22,21 +22,21 @@ const projects = [
     description:
       "Juego clásico de adivinar palabras con diseño moderno y animaciones suaves.",
     image: "/projects/ahorcado.png",
-    href: "https://ejemplo.com",
+    href: "https://ahorcadoreactcarlos.netlify.app",
   },
   {
     id: "03",
     title: "Rediseño web",
     description: "Rediseño completo de un sitio web.",
     image: "/projects/rousse.png",
-    href: "https://ejemplo.com",
+    href: "https://roussefoodfusion.netlify.app",
   },
   {
     id: "04",
-    title: "Algo",
+    title: "Proximo proyecto",
     description: "Something in the way.",
     image: "/projects/equilibria.png",
-    href: "https://ejemplo.com",
+    href: "#",
   },
 ];
 
