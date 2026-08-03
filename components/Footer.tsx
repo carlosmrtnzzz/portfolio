@@ -79,12 +79,6 @@ export default function Footer() {
         </a>
 
         <div className="flex items-center gap-4">
-          <a
-            href="mailto:carlosmartinej@gmail.com"
-            className="text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:text-zinc-500 dark:hover:text-zinc-200"
-          >
-            carlosmartinej@gmail.com
-          </a>
           <button
             onClick={scrollToTop}
             className="group flex h-8 w-8 items-center justify-center rounded-full border border-zinc-200 text-zinc-400 transition-all hover:border-zinc-400 hover:text-zinc-900 dark:border-zinc-700 dark:text-zinc-500 dark:hover:border-zinc-500 dark:hover:text-zinc-200"

@@ -191,30 +191,7 @@ export default function Hero() {
           y precisión.
         </p>
 
-        <a
-          ref={btnRef}
-          href="/Carlos_Martinez_CV.pdf"
-          download
-          className="mt-6 inline-flex items-center gap-2 rounded-full border border-zinc-300 bg-black px-6 py-3 text-sm font-medium text-white transition-all duration-300 hover:scale-105 hover:bg-zinc-800 dark:border-zinc-700 dark:bg-white dark:text-black dark:hover:bg-zinc-200 sm:mt-8"
-          style={{ opacity: 0 }}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-            <polyline points="7 10 12 15 17 10" />
-            <line x1="12" y1="15" x2="12" y2="3" />
-          </svg>
-          Descargar CV
-        </a>
+      
       </div>
 
       <div

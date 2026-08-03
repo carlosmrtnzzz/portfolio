@@ -101,7 +101,7 @@ export default function ContactPage() {
       <section className="mx-auto flex min-h-[calc(100vh-8rem)] max-w-7xl items-center justify-center px-4 sm:px-6">
         <div
           ref={cardRef}
-          className="contact-card w-full max-w-md"
+          className="contact-card w-full max-w-2xl"
           style={{ opacity: 0 }}
         >
           <div className="card-content">
@@ -177,121 +177,104 @@ export default function ContactPage() {
 
       <style jsx>{`
         .contact-card {
-          background: rgba(255, 255, 255, 0.8);
-          backdrop-filter: blur(12px);
-          border: 1px solid rgba(0, 0, 0, 0.08);
-          border-radius: 20px;
-          overflow: hidden;
-          box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
-          transition: box-shadow 0.3s ease;
-        }
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 30px 80px rgba(15, 23, 42, 0.08);
+            transition: box-shadow 0.3s ease;
+          }
 
-        :global(.dark) .contact-card {
-          background: rgba(24, 30, 37);
-          border: 1px solid rgba(255, 255, 255, 0.08);
-          box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+          :global(.dark) .contact-card {
+            background: rgba(18, 18, 20, 0.94);
+            border: 1px solid rgba(255, 255, 255, 0.12);
         }
 
         .card-content {
-          padding: 24px;
+          padding: 32px;
         }
 
         @media (min-width: 640px) {
-          .contact-card {
-            border-radius: 24px;
-          }
-
           .card-content {
-            padding: 40px;
+            padding: 48px;
           }
         }
 
         .contact-item {
           display: flex;
           align-items: center;
-          gap: 12px;
-          padding: 12px 14px;
-          background: rgba(0, 0, 0, 0.02);
-          border: 1px solid rgba(0, 0, 0, 0.04);
-          border-radius: 12px;
-          transition: all 0.3s ease;
-        }
-
-        @media (min-width: 640px) {
-          .contact-item {
-            gap: 16px;
-            padding: 16px 20px;
-            border-radius: 16px;
+          gap: 18px;
+          padding: 18px 22px;
+            background: rgba(255, 255, 255, 0.94);
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            border-radius: 18px;
+            transition: all 0.25s ease;
           }
-        }
 
-        :global(.dark) .contact-item {
-          background: rgba(255, 255, 255, 0.03);
-          border: 1px solid rgba(255, 255, 255, 0.06);
-        }
+          @media (min-width: 640px) {
+            .contact-item {
+              gap: 20px;
+              padding: 20px 24px;
+            }
+          }
 
-        .contact-item:hover {
-          background: rgba(0, 0, 0, 0.04);
-          border-color: rgba(0, 0, 0, 0.08);
-          transform: translateX(4px);
-        }
+          :global(.dark) .contact-item {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+          }
 
-        :global(.dark) .contact-item:hover {
-          background: rgba(255, 255, 255, 0.06);
-          border-color: rgba(255, 255, 255, 0.1);
-        }
+          .contact-item:hover {
+            background: rgba(255, 255, 255, 1);
+            border-color: rgba(15, 23, 42, 0.12);
+            box-shadow: 0 18px 40px rgba(15, 23, 42, 0.06);
+            transform: translateX(2px);
+          }
 
-        .contact-icon-wrapper {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 40px;
-          height: 40px;
-          flex-shrink: 0;
-          background: rgba(0, 0, 0, 0.05);
-          border-radius: 10px;
-          transition: all 0.3s ease;
-        }
+          :global(.dark) .contact-item:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.16);
+          }
 
-        @media (min-width: 640px) {
           .contact-icon-wrapper {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 52px;
+            height: 52px;
+            flex-shrink: 0;
+            background: rgba(15, 23, 42, 0.08);
+            border-radius: 16px;
+            transition: all 0.3s ease;
           }
-        }
 
-        :global(.dark) .contact-icon-wrapper {
-          background: rgba(255, 255, 255, 0.08);
-        }
+          @media (min-width: 640px) {
+            .contact-icon-wrapper {
+              width: 60px;
+              height: 60px;
+              border-radius: 20px;
+            }
+          }
 
-        .contact-item:hover .contact-icon-wrapper {
-          background: black;
-        }
+          :global(.dark) .contact-icon-wrapper {
+            background: rgba(255, 255, 255, 0.08);
 
         :global(.dark) .contact-item:hover .contact-icon-wrapper {
-          background: white;
+          background: rgba(255, 255, 255, 0.95);
         }
 
         .contact-icon {
-          color: rgba(0, 0, 0, 0.7);
+          color: rgba(15, 23, 42, 0.85);
           transition: color 0.3s ease;
         }
 
         .contact-icon :global(svg) {
-          width: 20px;
-          height: 20px;
-        }
-
-        @media (min-width: 640px) {
-          .contact-icon :global(svg) {
-            width: 24px;
-            height: 24px;
-          }
+          width: 24px;
+          height: 24px;
         }
 
         :global(.dark) .contact-icon {
-          color: rgba(255, 255, 255, 0.7);
+          color: rgba(255, 255, 255, 0.88);
         }
 
         .contact-item:hover .contact-icon {
@@ -303,68 +286,56 @@ export default function ContactPage() {
         }
 
         .contact-label {
-          font-size: 11px;
-          font-weight: 500;
+          font-size: 12px;
+          font-weight: 600;
           text-transform: uppercase;
-          letter-spacing: 0.05em;
-          color: rgba(0, 0, 0, 0.4);
-        }
-
-        @media (min-width: 640px) {
-          .contact-label {
-            font-size: 12px;
-          }
+          letter-spacing: 0.08em;
+          color: rgba(71, 85, 105, 0.75);
         }
 
         :global(.dark) .contact-label {
-          color: rgba(255, 255, 255, 0.4);
+          color: rgba(148, 163, 184, 0.7);
         }
 
         .contact-value {
-          font-size: 13px;
-          font-weight: 500;
-          color: rgba(0, 0, 0, 0.9);
+          font-size: 15px;
+          font-weight: 600;
+          color: rgba(15, 23, 42, 0.95);
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
         }
 
-        @media (min-width: 640px) {
-          .contact-value {
-            font-size: 15px;
-          }
-        }
-
         :global(.dark) .contact-value {
-          color: rgba(255, 255, 255, 0.9);
+          color: rgba(255, 255, 255, 0.95);
         }
 
         .arrow-icon {
-          color: rgba(0, 0, 0, 0.2);
+          color: rgba(71, 85, 105, 0.6);
           transition: all 0.3s ease;
           transform: translateX(0);
-          width: 18px;
-          height: 18px;
+          width: 20px;
+          height: 20px;
         }
 
         @media (min-width: 640px) {
           .arrow-icon {
-            width: 20px;
-            height: 20px;
+            width: 22px;
+            height: 22px;
           }
         }
 
         :global(.dark) .arrow-icon {
-          color: rgba(255, 255, 255, 0.2);
+          color: rgba(255, 255, 255, 0.35);
         }
 
         .contact-item:hover .arrow-icon {
-          color: rgba(0, 0, 0, 0.6);
-          transform: translateX(4px);
+          color: rgba(15, 23, 42, 0.8);
+          transform: translateX(5px);
         }
 
         :global(.dark) .contact-item:hover .arrow-icon {
-          color: rgba(255, 255, 255, 0.6);
+          color: rgba(15, 23, 42, 0.9);
         }
       `}</style>
     </main>

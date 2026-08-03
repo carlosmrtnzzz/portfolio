@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import Image from "next/image";
 import gsap from "gsap";
 
 const projects = [
@@ -16,7 +17,7 @@ const projects = [
     id: "02",
     title: "Ahorcado",
     description:
-      "Juego clásico de adivinar palabras con diseño moderno y animaciones suaves.",
+      "Juego clásico de adivinar palabras con temática de entorno tecnológico.",
     image: "/projects/ahorcado.webp",
     href: "https://ahorcadoreactcarlos.netlify.app",
   },
@@ -29,10 +30,9 @@ const projects = [
   },
   {
     id: "04",
-    title: "Proximo proyecto",
+    title: "Próximo proyecto",
     description: "Something in the way.",
-    image: "/projects/equilibria.webp",
-    href: "#",
+    image: "/projects/uk.webp",
   },
 ];
 
@@ -100,18 +100,17 @@ function ProjectCard({ project }: { project: (typeof projects)[number] }) {
         rel="noopener noreferrer"
         style={{ display: "block", textDecoration: "none", color: "inherit" }}
       >
-        <div style={{ position: "relative", overflow: "hidden" }}>
-          <img
+        <div style={{ position: "relative", overflow: "hidden", height: "var(--card-img-h, 280px)" }}>
+          <Image
             src={project.image}
             alt={project.title}
+            fill
+            sizes="(max-width: 768px) 100vw, 50vw"
             style={{
-              width: "100%",
-              height: "var(--card-img-h, 280px)",
               objectFit: "cover",
-              objectPosition: "center top",
+              objectPosition: "center",
               transition: "transform 0.4s ease",
               transform: hovered ? "scale(1.05)" : "scale(1)",
-              display: "block",
             }}
           />
 

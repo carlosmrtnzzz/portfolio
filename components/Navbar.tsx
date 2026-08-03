@@ -1,31 +1,26 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import ThemeToggle from "./ThemeToggle";
 import Image from "next/image";
 
 export default function Navbar() {
-  const pathname = usePathname();
-
-  const handleNavClick = (
+  const handleSmoothScroll = (
     e: React.MouseEvent<HTMLAnchorElement>,
-    href: string,
+    sectionId: string,
   ) => {
-    if (pathname === href) {
-      e.preventDefault();
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth",
-      });
+    e.preventDefault();
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
     }
   };
 
   const navLinks = [
-    { href: "/", label: "Inicio" },
-    { href: "/projects", label: "Proyectos" },
-    { href: "/contact", label: "Contacto" },
+    { href: "#home", label: "Inicio", sectionId: "home" },
+    { href: "#projects", label: "Proyectos", sectionId: "projects" },
+    { href: "#contact", label: "Contacto", sectionId: "contact" },
   ];
 
   return (
@@ -37,30 +32,27 @@ export default function Navbar() {
     >
       <nav className="mx-auto flex h-16 max-w-5xl items-center justify-between px-6">
         <span className="font-semibold tracking-tight text-black dark:text-white">
-          <Link href="/" onClick={(e) => handleNavClick(e, "/")}>
+          <Link
+            href="#home"
+            onClick={(e) => handleSmoothScroll(e, "home")}
+          >
             <Image src="/logo.png" alt="Logo" width={32} height={32} priority />
           </Link>
         </span>
 
         <div className="flex items-center gap-6">
           <div className="flex gap-6 text-sm text-zinc-600 dark:text-zinc-400">
-            {navLinks.map((link) => {
-              const isActive = pathname === link.href;
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={(e) => handleNavClick(e, link.href)}
-                  className={`transition-colors hover:text-black dark:hover:text-white ${
-                    isActive ? "font-semibold text-black dark:text-white" : ""
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              );
-            })}
+            {navLinks.map((link) => (
+              <a
+                key={link.sectionId}
+                href={link.href}
+                onClick={(e) => handleSmoothScroll(e, link.sectionId)}
+                className="transition-colors hover:text-black dark:hover:text-white"
+              >
+                {link.label}
+              </a>
+            ))}
           </div>
-
           <ThemeToggle />
         </div>
       </nav>
