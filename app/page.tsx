@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Hero from "@/components/Hero";
+import TechMarquee from "@/components/TechMarquee";
 import ProjectsGrid from "@/components/Projectsgrid";
 import gsap from "gsap";
 
@@ -102,8 +103,16 @@ export default function Home() {
         <Hero />
       </section>
 
+      {/* Tech Marquee — sits flush against the hero */}
+      <section className="bg-zinc-50 dark:bg-black">
+        <TechMarquee />
+      </section>
+
       {/* Projects Section */}
-      <section id="projects" className="min-h-screen bg-zinc-50 py-24 dark:bg-black">
+      <section
+        id="projects"
+        className="min-h-screen bg-zinc-50 pt-16 pb-24 dark:bg-black sm:pt-60"
+      >
         <div className="mx-auto max-w-7xl px-6">
           <h2 className="mb-12 text-4xl font-normal md:text-6xl">Proyectos</h2>
           <ProjectsGrid />

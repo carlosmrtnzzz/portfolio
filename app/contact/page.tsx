@@ -1,6 +1,9 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Hero from "@/components/Hero";
+import TechMarquee from "@/components/TechMarquee";
+import ProjectsGrid from "@/components/Projectsgrid";
 import gsap from "gsap";
 
 const contactMethods = [
@@ -27,7 +30,7 @@ const contactMethods = [
   },
 ];
 
-export default function ContactPage() {
+export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
@@ -94,89 +97,113 @@ export default function ContactPage() {
   }, []);
 
   return (
-    <main
-      ref={containerRef}
-      className="min-h-screen bg-zinc-50 pt-24 pb-12 dark:bg-black"
-    >
-      <section className="mx-auto flex min-h-[calc(100vh-8rem)] max-w-7xl items-center justify-center px-4 sm:px-6">
-        <div
-          ref={cardRef}
-          className="contact-card w-full max-w-2xl"
-          style={{ opacity: 0 }}
-        >
-          <div className="card-content">
-            <h1
-              ref={titleRef}
-              className="text-4xl font-normal sm:text-5xl md:text-6xl"
-              style={{ opacity: 0 }}
-            >
-              Contacto
-            </h1>
+    <main className="overflow-x-hidden">
+      {/* Hero Section */}
+      <section id="home" className="h-screen overflow-hidden pt-16">
+        <Hero />
+      </section>
 
-            <p
-              ref={subtitleRef}
-              className="mt-6 text-sm text-zinc-500 dark:text-zinc-400 sm:mt-8 sm:text-base"
-              style={{ opacity: 0 }}
-            >
-              Abierto a nuevas oportunidades y retos profesionales.
-              <br />
-              Encantado de formar parte de equipos con visión y ambición.
-            </p>
+      {/* Tech Marquee — sits on solid black, between the animated hero background and Proyectos */}
+      <section className="bg-zinc-50 py-10 dark:bg-black sm:py-14">
+        <TechMarquee />
+      </section>
 
-            <div className="mt-8 flex flex-col gap-3 sm:mt-10">
-              {contactMethods.map((method, index) => (
-                <a
-                  key={method.id}
-                  ref={(el) => {
-                    itemsRef.current[index] = el;
-                  }}
-                  href={method.href}
-                  target={method.id !== "email" ? "_blank" : undefined}
-                  rel={
-                    method.id !== "email" ? "noopener noreferrer" : undefined
-                  }
-                  className="contact-item group"
-                  style={{ opacity: 0 }}
-                >
-                  <div className="contact-icon-wrapper">
-                    <div
-                      className="contact-icon"
-                      dangerouslySetInnerHTML={{ __html: method.icon }}
-                    />
-                  </div>
-                  <div className="flex min-w-0 flex-1 flex-col">
-                    <span className="contact-label">{method.label}</span>
-                    <span className="contact-value">{method.value}</span>
-                  </div>
-                  <svg
-                    className="arrow-icon flex-shrink-0"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <line x1="7" y1="17" x2="17" y2="7" />
-                    <polyline points="7 7 17 7 17 17" />
-                  </svg>
-                </a>
-              ))}
-            </div>
-            <div className="mt-8 pt-6 border-t border-zinc-200 dark:border-zinc-800 sm:mt-10">
-              <p className="text-sm text-zinc-400 dark:text-zinc-500">
-                Málaga, España
-              </p>
-            </div>
-          </div>
+      {/* Projects Section */}
+      <section
+        id="projects"
+        className="min-h-screen bg-zinc-50 pb-24 dark:bg-black"
+      >
+        <div className="mx-auto max-w-7xl px-6">
+          <h2 className="mb-12 text-4xl font-normal md:text-6xl">Proyectos</h2>
+          <ProjectsGrid />
         </div>
       </section>
 
-      <style jsx>{`
-        .contact-card {
+      {/* Contact Section */}
+      <section
+        id="contact"
+        ref={containerRef}
+        className="min-h-screen bg-zinc-50 pt-24 pb-12 dark:bg-black"
+      >
+        <div className="mx-auto flex min-h-[calc(100vh-8rem)] max-w-7xl items-center justify-center px-4 sm:px-6">
+          <div
+            ref={cardRef}
+            className="contact-card w-full max-w-2xl"
+            style={{ opacity: 0 }}
+          >
+            <div className="card-content">
+              <h2
+                ref={titleRef}
+                className="text-4xl font-normal sm:text-5xl md:text-6xl"
+                style={{ opacity: 0 }}
+              >
+                Contacto
+              </h2>
+
+              <p
+                ref={subtitleRef}
+                className="mt-6 text-sm text-zinc-500 dark:text-zinc-400 sm:mt-8 sm:text-base"
+                style={{ opacity: 0 }}
+              >
+                Abierto a nuevas oportunidades y retos profesionales.
+                <br />
+                Encantado de formar parte de equipos con visión y ambición.
+              </p>
+
+              <div className="mt-8 flex flex-col gap-3 sm:mt-10">
+                {contactMethods.map((method, index) => (
+                  <a
+                    key={method.id}
+                    ref={(el) => {
+                      itemsRef.current[index] = el;
+                    }}
+                    href={method.href}
+                    target={method.id !== "email" ? "_blank" : undefined}
+                    rel={
+                      method.id !== "email" ? "noopener noreferrer" : undefined
+                    }
+                    className="contact-item group"
+                    style={{ opacity: 0 }}
+                  >
+                    <div className="contact-icon-wrapper">
+                      <span
+                        className="contact-icon"
+                        dangerouslySetInnerHTML={{ __html: method.icon }}
+                      />
+                    </div>
+                    <div className="flex flex-1 flex-col justify-center">
+                      <span className="contact-label">{method.label}</span>
+                      <span className="contact-value">{method.value}</span>
+                    </div>
+                    <svg
+                      className="arrow-icon"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M5 12h14" />
+                      <path d="m12 5 7 7-7 7" />
+                    </svg>
+                  </a>
+                ))}
+              </div>
+              <div className="mt-8 pt-6 border-t border-zinc-200 dark:border-zinc-800 sm:mt-10">
+                <p className="text-sm text-zinc-400 dark:text-zinc-500">
+                  Málaga, España
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <style jsx>{`
+          .contact-card {
             background: rgba(255, 255, 255, 0.96);
             backdrop-filter: blur(16px);
             border: 1px solid rgba(15, 23, 42, 0.08);
@@ -189,23 +216,24 @@ export default function ContactPage() {
           :global(.dark) .contact-card {
             background: rgba(18, 18, 20, 0.94);
             border: 1px solid rgba(255, 255, 255, 0.12);
-        }
-
-        .card-content {
-          padding: 32px;
-        }
-
-        @media (min-width: 640px) {
-          .card-content {
-            padding: 48px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.22);
           }
-        }
 
-        .contact-item {
-          display: flex;
-          align-items: center;
-          gap: 18px;
-          padding: 18px 22px;
+          .card-content {
+            padding: 32px;
+          }
+
+          @media (min-width: 640px) {
+            .card-content {
+              padding: 48px;
+            }
+          }
+
+          .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            padding: 18px 22px;
             background: rgba(255, 255, 255, 0.94);
             border: 1px solid rgba(15, 23, 42, 0.08);
             border-radius: 18px;
@@ -258,86 +286,92 @@ export default function ContactPage() {
 
           :global(.dark) .contact-icon-wrapper {
             background: rgba(255, 255, 255, 0.08);
-
-        :global(.dark) .contact-item:hover .contact-icon-wrapper {
-          background: rgba(255, 255, 255, 0.95);
-        }
-
-        .contact-icon {
-          color: rgba(15, 23, 42, 0.85);
-          transition: color 0.3s ease;
-        }
-
-        .contact-icon :global(svg) {
-          width: 24px;
-          height: 24px;
-        }
-
-        :global(.dark) .contact-icon {
-          color: rgba(255, 255, 255, 0.88);
-        }
-
-        .contact-item:hover .contact-icon {
-          color: white;
-        }
-
-        :global(.dark) .contact-item:hover .contact-icon {
-          color: black;
-        }
-
-        .contact-label {
-          font-size: 12px;
-          font-weight: 600;
-          text-transform: uppercase;
-          letter-spacing: 0.08em;
-          color: rgba(71, 85, 105, 0.75);
-        }
-
-        :global(.dark) .contact-label {
-          color: rgba(148, 163, 184, 0.7);
-        }
-
-        .contact-value {
-          font-size: 15px;
-          font-weight: 600;
-          color: rgba(15, 23, 42, 0.95);
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-        }
-
-        :global(.dark) .contact-value {
-          color: rgba(255, 255, 255, 0.95);
-        }
-
-        .arrow-icon {
-          color: rgba(71, 85, 105, 0.6);
-          transition: all 0.3s ease;
-          transform: translateX(0);
-          width: 20px;
-          height: 20px;
-        }
-
-        @media (min-width: 640px) {
-          .arrow-icon {
-            width: 22px;
-            height: 22px;
           }
-        }
 
-        :global(.dark) .arrow-icon {
-          color: rgba(255, 255, 255, 0.35);
-        }
+          .contact-item:hover .contact-icon-wrapper {
+            background: rgba(15, 23, 42, 0.95);
+          }
 
-        .contact-item:hover .arrow-icon {
-          color: rgba(15, 23, 42, 0.8);
-          transform: translateX(5px);
-        }
+          :global(.dark) .contact-item:hover .contact-icon-wrapper {
+            background: rgba(255, 255, 255, 0.95);
+          }
 
-        :global(.dark) .contact-item:hover .arrow-icon {
-          color: rgba(15, 23, 42, 0.9);
-        }
-      `}</style>
+          .contact-icon {
+            color: rgba(15, 23, 42, 0.85);
+            transition: color 0.3s ease;
+          }
+
+          .contact-icon :global(svg) {
+            width: 24px;
+            height: 24px;
+          }
+
+          :global(.dark) .contact-icon {
+            color: rgba(255, 255, 255, 0.88);
+          }
+
+          .contact-item:hover .contact-icon {
+            color: white;
+          }
+
+          :global(.dark) .contact-item:hover .contact-icon {
+            color: black;
+          }
+
+          .contact-label {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: rgba(55, 65, 81, 0.75);
+          }
+
+          :global(.dark) .contact-label {
+            color: rgba(203, 213, 225, 0.8);
+          }
+
+          .contact-value {
+            font-size: 15px;
+            font-weight: 600;
+            color: rgba(17, 24, 39, 0.95);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+
+          :global(.dark) .contact-value {
+            color: rgba(255, 255, 255, 0.95);
+          }
+
+          .arrow-icon {
+            color: rgba(55, 65, 81, 0.6);
+            transition: all 0.3s ease;
+            transform: translateX(0);
+            width: 20px;
+            height: 20px;
+          }
+
+          @media (min-width: 640px) {
+            .arrow-icon {
+              width: 22px;
+              height: 22px;
+            }
+          }
+
+          :global(.dark) .arrow-icon {
+            color: rgba(255, 255, 255, 0.35);
+          }
+
+          .contact-item:hover .arrow-icon {
+            color: rgba(17, 24, 39, 0.8);
+            transform: translateX(5px);
+          }
+
+          :global(.dark) .contact-item:hover .arrow-icon {
+            color: rgba(17, 24, 39, 0.9);
+          }
+        `}</style>
+      </section>
     </main>
   );
 }
